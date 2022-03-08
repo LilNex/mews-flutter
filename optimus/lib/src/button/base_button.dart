@@ -10,6 +10,7 @@ class BaseButton extends StatelessWidget {
     Key? key,
     this.onPressed,
     required this.child,
+    this.color,
     this.minWidth,
     this.leftIcon,
     this.rightIcon,
@@ -22,6 +23,8 @@ class BaseButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
   final Widget child;
+
+  final Color? color;
 
   final double? minWidth;
 
@@ -75,7 +78,11 @@ class BaseButton extends StatelessWidget {
   }
 
   Color _color(OptimusThemeData theme) {
-    switch (variant) {
+    if (color != null) {
+      return color!.withAlpha(150);
+      
+    } else {
+      switch (variant) {
       case OptimusButtonVariant.defaultButton:
         return theme.colors.neutral50;
       case OptimusButtonVariant.primary:
@@ -86,6 +93,9 @@ class BaseButton extends StatelessWidget {
         return theme.colors.danger500;
       case OptimusButtonVariant.warning:
         return theme.colors.warning500;
+      default:
+        return theme.colors.primary500;
+    }
     }
   }
 
@@ -105,7 +115,10 @@ class BaseButton extends StatelessWidget {
   }
 
   Color _hoverColor(OptimusThemeData theme) {
-    switch (variant) {
+    if (color != null) {
+      return color!.withAlpha(200);
+    } else {
+      switch (variant) {
       case OptimusButtonVariant.defaultButton:
         return theme.colors.neutral100;
       case OptimusButtonVariant.primary:
@@ -116,7 +129,12 @@ class BaseButton extends StatelessWidget {
         return theme.colors.danger700;
       case OptimusButtonVariant.warning:
         return theme.colors.warning700;
+      default:
+        return theme.colors.primary700;
     }
+    }
+
+    
   }
 
   Color _highLightColor(OptimusThemeData theme) {

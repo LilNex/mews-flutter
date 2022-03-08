@@ -16,6 +16,7 @@ class OptimusButton extends StatelessWidget {
     Key? key,
     this.onPressed,
     required this.child,
+    this.color,
     this.minWidth,
     this.leftIcon,
     this.rightIcon,
@@ -31,6 +32,8 @@ class OptimusButton extends StatelessWidget {
 
   /// Typically the button's label.
   final Widget child;
+
+  final Color? color;
 
   final double? minWidth;
 
@@ -61,6 +64,7 @@ class OptimusButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BaseButton(
         onPressed: onPressed,
+        color: color,
         minWidth: minWidth,
         leftIcon: leftIcon,
         rightIcon: rightIcon,

@@ -138,17 +138,24 @@ class BaseButton extends StatelessWidget {
   }
 
   Color _highLightColor(OptimusThemeData theme) {
-    switch (variant) {
+
+    if (color != null) {
+      return color!.withAlpha(150);
+    } else {
+      switch (variant) {
       case OptimusButtonVariant.defaultButton:
-        return theme.colors.neutral200;
+        return theme.colors.neutral100;
       case OptimusButtonVariant.primary:
-        return theme.colors.primary900;
+        return theme.colors.primary700;
       case OptimusButtonVariant.text:
-        return theme.colors.neutral500t16;
+        return theme.colors.neutral500t8;
       case OptimusButtonVariant.destructive:
-        return theme.colors.danger900;
+        return theme.colors.danger700;
       case OptimusButtonVariant.warning:
-        return theme.colors.warning900;
+        return theme.colors.warning700;
+      default:
+        return theme.colors.primary700;
+    }
     }
   }
 

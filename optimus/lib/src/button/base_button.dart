@@ -79,7 +79,7 @@ class BaseButton extends StatelessWidget {
 
   Color _color(OptimusThemeData theme) {
     if (color != null) {
-      return color!.withAlpha(150);
+      return color!.withAlpha(255);
       
     } else {
       switch (variant) {

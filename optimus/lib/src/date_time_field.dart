@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:optimus/optimus.dart';
 
 typedef DateTimeFormatter = String Function(DateTime);
@@ -14,6 +15,8 @@ class OptimusDateTimeField extends StatefulWidget {
     this.maxDate,
     this.error,
     required this.formatDateTime,
+    this.prefix,
+
     this.isClearEnabled = false,
     this.placeholder,
   }) : super(key: key);
@@ -27,6 +30,7 @@ class OptimusDateTimeField extends StatefulWidget {
   final String? error;
   final bool isClearEnabled;
   final String? placeholder;
+  final IconData? prefix;
 
   @override
   _OptimusDateTimeFieldState createState() => _OptimusDateTimeFieldState();
@@ -62,15 +66,42 @@ class _OptimusDateTimeFieldState extends State<OptimusDateTimeField> {
 
   void _showPickerDialog() {
     FocusScope.of(context).requestFocus(FocusNode());
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (context) => CupertinoDatePicker(
-        onDateTimeChanged: widget.onChanged,
-        initialDateTime: widget.value,
-        minimumDate: widget.minDate,
-        maximumDate: widget.maxDate,
-      ),
-    );
+    // showModalBottomSheet<void>(
+    //   context: context,
+    //   builder: (context) => 
+      // CupertinoDatePicker(
+      //   onDateTimeChanged: widget.onChanged,
+      //   initialDateTime: widget.value,
+      //   minimumDate: widget.minDate,
+      //   maximumDate: widget.maxDate,
+      // ),
+    // );
+
+    DatePicker.showDateTimePicker(context,
+                                  // if(dateRdv! != null)
+                                  // currentTime: dateRdv,
+                                  showTitleActions: true,
+                                  minTime: DateTime(2022, 1, 1),
+                                  maxTime: DateTime(2040, 1, 1),
+                                  theme: DatePickerTheme(
+                                      headerColor: Colors.blueAccent.shade700,
+                                      backgroundColor: Colors.grey,
+                                      itemStyle: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                      doneStyle: TextStyle(
+                                          color: Colors.white, fontSize: 16)),
+                                  // onChanged: (date) {
+                                  //   // print('change $date in time zone ');
+                                  // },
+                                  onConfirm: widget.onChanged,
+                                  currentTime: (() {
+                                    return widget.value == null
+                                        ? DateTime.now()
+                                        : widget.value!;
+                                  }()),
+                                  locale: LocaleType.fr);
   }
 
   void _onInputChanged(String v) {
@@ -89,5 +120,8 @@ class _OptimusDateTimeFieldState extends State<OptimusDateTimeField> {
         isClearEnabled: widget.isClearEnabled,
         placeholder: widget.placeholder,
         onChanged: _onInputChanged,
+        prefix:const Icon(OptimusIcons.available_dates),
+
+        
       );
 }
